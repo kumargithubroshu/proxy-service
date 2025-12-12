@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="D:/API-Gateway-Example/logs/api-gateway-logs" />
+    <property name="HOST" value="proxy" />
+
+    <!-- ================= Console Appender ================= -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[GATEWAY-API]::[PROXY-LOGS]::[%d]::[%X{requestId}]::[]::[%p]::[APP]::[%L]::[%C]::%m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ================= Rolling File Appender ================= -->
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/${HOST}.log</file>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[GATEWAY-API]::[PROXY-LOGS]::[%d]::[%X{requestId}]::[]::[%p]::[APP]::[%L]::[%C]::%m%n</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/${HOST}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <!-- keep 1 day (your value) -->
+            <maxHistory>1</maxHistory>
+
+            <maxFileSize>50MB</maxFileSize>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- ================= Root Logger ================= -->
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </root>
+
+    <!-- ================= Package Logger ================= -->
+    <logger name="com.proxy" level="TRACE" additivity="false">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
+
+</configuration>

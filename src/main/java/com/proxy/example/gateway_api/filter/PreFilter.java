@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.ZuulFilter;
@@ -26,6 +28,9 @@ public class PreFilter extends ZuulFilter{
 
 	@Override
 	public Object run() throws ZuulException {
+		String requestId = UUID.randomUUID().toString();
+		MDC.put("requestId", requestId);
+		
 		log.info("Pre filter=====>: ");
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();

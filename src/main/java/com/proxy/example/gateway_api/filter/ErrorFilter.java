@@ -2,6 +2,7 @@ package com.proxy.example.gateway_api.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.ZuulFilter;
@@ -30,10 +31,17 @@ public class ErrorFilter extends ZuulFilter{
 	
 	@Override
 	public Object run() {
+		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
-		log.info("ErrorFilter: "+ String.format("response status is %d", response.getStatus()));
 		
-		RequestContext ctx= RequestContext.getCurrentContext();
+		// newly added lines with condition
+		// Ensure MDC context is maintained from PreFilter
+		String requestId = (String) ctx.get("requestId");
+		if(requestId != null && MDC.get("requestId") == null) {
+			MDC.put("requestId", requestId);
+		}
+		
+		log.info("ErrorFilter: "+ String.format("response status is %d", response.getStatus()));
 		
 		String responseBody = ctx.getResponseBody();
 		log.info("Error occurred, Response = {} ", responseBody);

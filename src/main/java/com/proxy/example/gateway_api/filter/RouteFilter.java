@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.ZuulFilter;
@@ -25,6 +26,11 @@ public class RouteFilter extends ZuulFilter{
 	public Object run() throws ZuulException {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
+		
+		String requestId = (String) ctx.get("requestId");
+		if(requestId != null && MDC.get("requestId") == null) {
+			MDC.put("requestId", requestId);
+		}
 		
 		log.info("METHOD:====> " +request.getMethod());
 		printSourceUrl(request);
