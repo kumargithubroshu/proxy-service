@@ -5,6 +5,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+/** 
+ * @author Roshan Kumar
+ * @date   14-11-2025
+ * @for    Learning purpose
+ */
+
 public class ServletInitializer extends SpringBootServletInitializer{
 	
 	private static Logger logger = LogManager.getLogger(ServletInitializer.class);

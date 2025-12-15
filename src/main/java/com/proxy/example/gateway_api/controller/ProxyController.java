@@ -17,6 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/** 
+ * @author Roshan Kumar
+ * @date   15-11-2025
+ * @for    Learning purpose
+ */
+
 @RestController
 @RequestMapping("/proxy")
 public class ProxyController {

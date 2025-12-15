@@ -9,6 +9,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/** 
+ * @author Roshan Kumar
+ * @date   14-11-2025
+ * @for    Learning purpose
+ */
+
 @SpringBootApplication
 @EnableZuulProxy
 @CrossOrigin

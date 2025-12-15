@@ -10,6 +10,12 @@ import com.netflix.zuul.context.RequestContext;
 
 import javax.servlet.http.HttpServletResponse;
 
+/** 
+ * @author Roshan Kumar
+ * @date   14-11-2025
+ * @for    Learning purpose
+ */
+
 @Component
 public class ErrorFilter extends ZuulFilter{
 	private static Logger log= LoggerFactory.getLogger(ErrorFilter.class);
